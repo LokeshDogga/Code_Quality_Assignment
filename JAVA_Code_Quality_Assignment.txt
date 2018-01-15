@@ -1,0 +1,98 @@
+Code Quality Java
+
+--------Vulnerabilities----------
+
+1. 	Credentials should not be hardcoded.
+	=>This Vulnerability tells us not directly add the username and password into connection string rather we should use encrypted form
+	  of them and use in connection string.
+2.	Filters which are defined should be used for sure.
+	=>This rule states that the filters which are defined in web.xml should be used compulsorily. if not used there is not point in	
+	  defining such filters.
+3.	Main Method should not be present in web application.
+	=>This rule tells us not have main method in web application. even if we use it while debugging we should not send it to production.
+4.	"HttpServletRequest.getRequestedSessionId()" should not be used
+	=>This rule tell us, not use above method. if we use that method we may not get valid current session Id of client or we get session 
+	  Id as null if client did not specify session Id. Moreover end user can modify session id.
+5.	SQL binding mechanisms should be used
+	=>This rules states us not use externally provided data should not bound with sql commands. It might help attacker to include input
+	  which result in execution of unintended commands.
+6.	Cookies should be "secure"
+	=>Cookies should be secured and they should be encrypted and transmitted over secured http connections. Cookies can secured by using
+	  setSecure method.
+7.	Exceptions should not be thrown from servlet methods
+	=>It is not good to throw exceptions in servlet methods. if we fail to catch those exceptions they may leave our application in a
+	  vulnerable state leading to DOS attacks.
+8.	IP addresses should not be hardcoded
+	=>It is not a good idea to hardcode IP addresses because, we need to recompile the code if there is a change in address.and it also
+	  allows attackers to decompile the code and thereby discover a potentially sensitive address.
+9.	Class variable fields should not have public accessibility
+	=> We should not have class variables as public because our internal representation of data is exposed. and Moreover we should set 
+	   our variables to public if it necessary otherwise they are left as private.
+10.	Mutable members should not be stored or returned directly
+	=>This rule tells us not to store or return mutable members. if we do so there is a chance of modification of our data. So we need to
+      keep a copy of our data, or store it in a immutable storage.
+	  
+	 
+-----------code smells-----------
+
+1.	"for" loop increment clauses should modify the loops' counters
+	=>It can be confusing to increment the variable in for loop outside the for loop's increment clause.This should be avoided and the 
+	  variable should be incremented inside the loop's increment clause.
+2.	"switch" statements should end with "default" clauses
+	=>This rule tells us to use default clause in switch case. This is to handle edge cases. we need not write default clause in a case 
+	  where we use enums.
+3. 	Execution of the Garbage Collector should be triggered only by the JVM
+	=>This rule tells us not to explicitly call garbage collector because we don't know the implementation of garbage collection and how 
+	  it will change the behaviour of our application.
+4. 	Exceptions should not be thrown in finally blocks
+	=>if we throw exceptions form a finally block it will mask any exception which was previously thrown. It results in wrong exception 
+	  message and loss of stack trace.
+5.	Assignments should not be redundant
+	=>We should not write assignment statements which are redundant. It leads to confusion while reading the code.
+6.	Unused "private" classes should be removed
+	=>We should use all the classes which we define. if not then those classes are considered as deadcode.If we have deadcode maintenance
+      also increases
+7.	Static fields should not be updated in constructors
+	=>It is not a good practise to update static variables in constructors, because it leads to unreliable behaviour at runtime since it
+      will change all instances of that class.
+8.	Classes with only "static" methods should not be instantiated
+	=>This is some basic commonsense as if we define any class with only static methods then we can call those methods without creating an
+      object for that class.so, we need not create an object which saves us some space.
+9.	"static" members should be accessed statically
+	=>Even this is some basic knowledge as wherever we make changes to a static members it is reflected at the same point. so inorder to 
+	  avoid confusion while reading we change the variables through the class itself.
+10.	Annotation repetitions should not be wrapped
+	=>This rule states us not use same annotation  multiple times on a method or a class etc. It reduces readability and increases confusion.
+
+	
+----------Bugs-----------
+
+1.	Loops should not be infinite
+	=>Infinite loops will cause our application to crash.we should find one or the other alternative way to write loops or a break condition
+2.	Resources should be closed
+	=>All the resources that we use in our application should be closes after use. failing to close those resources will lead to memory leaks.
+3.	Locks should be released
+	=>If we acquire lock on resource during our method execution we must release the lock on that resource after the usage of that resource.
+	  failing to do so will lead to deadlock situation.
+4.	Exception should not be created without being thrown
+	=>This is basic knowledge as if we don't throw an exception it will lead our application to crash. so we need to throw the exception if we 
+	  wish to raise an exception.
+5.	All branches in a conditional structure should not have exactly the same implementation
+	=>This bugs is nothing but if we have same implementation within an if and also else followed by there is no point in writing if, else. As
+	  this may be because of typo or logical error.
+6.	Expressions used in "assert" should not produce side effects
+	=>Assert statements should be either evaluated to true or false. as we should not rely on their execution. They may through few unexpected
+	  errors.
+7.	Getters and setters should be synchronized in pairs
+	=>This rule states that the getters and setters should be synchronized because we follow read commit values. Failing to synchronize the those
+	  methods we might get values are unexpected.
+8.	"=+" should not be used instead of "+="
+	=>As we can clearly see that += is completely different from =+. writing this kind of statement will result in unambiguous. this also	
+	  decreases readability.
+9.	Loop conditions should be true at least once
+	=>For example if we have a while loop or a for loop and the condition is never true. Hence there is no point in writing such loops if they	
+	  are not even executed once. This is considered as an error and also it is a bug.
+10.	Non-serializable classes should not be written
+	=>We cannot write non-serializable class to a file. so if we want to serialize any class we need to implement serializable interface.
+	  as in huge applications it is a good practise to implement serializable interface.
+
