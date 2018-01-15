@@ -1,0 +1,100 @@
+Code Quality JavaScript
+
+----------Bugs------------
+1. 	Function calls should not pass extra arguments
+	=>If a function is defined to expect 2 arguments and we pass 3 arguments while calling that function then the last argument is
+      neglected. this is considered as a bug.
+2.	Function declarations should not be made within blocks
+	=>declaring functions within blocks is not supported by different browsers.so we need to use target variable and assign the 
+	  function to it. so to avoid conflicts we will not declare function within blocks.
+3.	Trailing commas should not be used
+	=>when we create an object using bracket's syntactig sugar method we might leave trailing commas, which is not supported by Internet
+	  explorer below version 9, which will throw a meaningless error.
+4.	The base should be provided to "parseInt"
+	=>Basically parseInt function is of types. one type takes one argument and other type takes two arguments. first argument is a string
+	  and second argument is base.if we use browsers before 2013 they return values for base-8 so, it is good give base value for parseInt
+	  function.
+5.	useless if loops should be removed.
+	=>This is because when we have if loop whose else condition as never entered or executed or that loop is never going to be triggered
+	  then there is no point in writing such loops. this should be avoided.
+6.	Bitwise operators should not be used in boolean contexts
+	=>When we use bitwise operators in boolean contexts | and & can be mistaken for boolean operators || and &&. so we need to be careful
+	  while using those operators.
+7.	Property names should not be duplicated within a class or object literal
+	=>Even though javascript allows duplicated property names in class only the last property name has the actual effect all other 
+	  properties are of no use.so, we must have different property names to have their significance.
+8.	Function argument names should be unique
+	=>This is similar to above bug as, if we have all of our functional arguments with same name the last argument masks all the previous
+	  arguments. and all the previous arguments can never be accessible. there is no point in this kind of hiding which further increases
+	  ambiguity and maintainability.
+9.	Variables should not be self-assigned
+	=>Even this is a basic commonsense.if we assign a value to itself there is no modification in data of that variable and one additional
+	  statement is added to our code.
+10.	Values should not be uselessly incremented
+	=>if we are using variables and we try to increment a variable and the variable is not getting effected by that operation then there is
+	  no point in incrementing that variable. for example i = i++; statement has no effect on 'i' where as we can directly write i++;
+	  
+	  
+------------Vulnerabilities-------------
+1. 	Alert() should not be used.
+	=>As alert can display some sensitive information to attackers it is good practise to avoid them. it might be helpful to use them during
+	  development time. but in production mode they need to be avoided.
+2.	console log should not be used.
+	=>This is similar to above statement. we can have them during development time but should be removed from production mode. this may 
+	  run our application into risk by exposing sensitive information to attackers.
+3.	untrusted content should not be used.
+	=>When we use content of untrusted sites in our sites this may lead to exposure of sensitive information of our client to attackers. 
+	  where there is a chance of intruders attacking our systems.
+4.	Local Storage should not be used.
+	=>Even though we have the chance of using local storage to store our client information.the information is stored without encrypting and it  
+	  can be used by any script and get the information.
+5.	Web Sql databases should not be used.
+	=>This is nothing but, the web sql databases are not completely developed they are not stable and are supported by few browsers only.
+	  if we use them the stability of our application is lost.
+6.	Debugger statements should not be used.
+	=>These statements are meant to be used while development time. These are nothing but breakpoints in our code and execution halts at these
+	  statements. so they must be excluded from the production mode.
+7.	code should not be dynamically injected and executed
+	=>When we try to evaluate data at runtime it leads to latency in response to end user and moreover it not safer to dynamically execute
+	  the input which leads to vulnerability.
+8.	Cross-document messaging domains should be carefully restricted
+	=>JavaScript has the ability to download scripts from multiple sources and html 5 has increased the level of cross domain access. if we 
+	  did not implement correctly this functionality may lead to unintentional data leakage.so, this must carefully restricted.
+9.	Function constructors should not be used
+	=> It is just similar to dynamically executing our code. which will lead us to security risk and increases our application response time.
+10.	Cross-Site Scripting (XSS) Attacks
+	=>This is the most common vulnerability. through the manipulation of javascript and html, hackers execute malicious scripts and this
+	  script is embedded into the web page visited by the client and predefined operations are performed and clients information is obtained.
+	 
+	 
+-----------Code Smell-------------
+
+1.	Octal values should not be used
+	=>Integer literals starting with zero are octal rather than decimal values. and if we fail to find them lot of time and money are wasted 
+	  on that small error.
+2.	Switch cases should end with an unconditional "break" statement
+	=>This statement tells us to break each and every case there itself failing to do so will cause all the below cases also get executed 
+	  until found a break statement.
+3.	Arguments to built-in functions should match documented types
+	=>The types of the arguments to built-in functions are specified in the JavaScript language specifications. Calls to these functions 
+	  should conform to the documented types, otherwise the result will most likely not be what was expected
+4.	"delete" should not be used on arrays
+	=>The delete operation will remove a property from an object as array is an object the property is removed. but there is a hole left in
+	  the array which will remain there itself and all the elements to the right are not pushed to left.Alternatively pop or splice should be used.
+5.	Variables and functions should not be redeclared
+	=>unless it is intentionally done by developer, we should not redeclare variables and functions as the most recent declaration will overwrite
+	  the past declarations and the result might not be what it is expected to.
+6.	Functions should not be defined inside loops
+	=>This type of coding practise might lead to creation of multiple functions with unexpected results. we actually might not get what we are 
+	  intended to.
+7.	Nested blocks of code should not be left empty
+	=>There is no point in writing nested blocks and leaving them empty.So they must be either filled or removed.
+8.	Multiline string literals should not be used
+	=>Even though continuous strings are allowed across most script engines, ECMA Script does not allow one to use them. and moreover  the 
+	  whitespace at the beginning of each line can't be safely stripped at compile time, and any whitespace after the slash will result in errors.
+9.	"void" should not be used
+	=>The void operator is not allowed to use because it will unconditionally returns undefined. it also reduces readability.
+10.	Control structures should use curly braces
+	=>We may write control structures with out curly braces and it is also technically correct but when a change is needed to be made it might
+	  lead us to some tricky errors, and it also need more maintenance.
+	
